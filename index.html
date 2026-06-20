@@ -505,7 +505,7 @@ function setStatus(state){
   const dot=document.getElementById('statusDot'), txt=document.getElementById('statusText');
   if(state===true){ dot.className='status-dot on'; txt.textContent='Clé valide ✓'; }
   else if(state==='checking'){ dot.className='status-dot'; txt.textContent='Vérification…'; }
-  else if(state==='neterr'){ dot.className='status-dot'; txt.textContent='Réseau indisponible'; }
+  else if(state==='neterr'){ dot.className='status-dot'; txt.textContent='Connexion bloquée — ouvre dans un navigateur'; }
   else { dot.className='status-dot'; txt.textContent='Clé Finnhub invalide'; }
 }
 
@@ -522,7 +522,13 @@ function pickM(o,keys){ if(!o) return null; for(const k of keys){ const v=o[k]; 
 
 async function fh(path){
   await rateGate();
-  const r=await fetch(`${FH}/${path}${path.includes('?')?'&':'?'}token=${fhKey()}`);
+  let r;
+  try{
+    r=await fetch(`${FH}/${path}${path.includes('?')?'&':'?'}token=${fhKey()}`);
+  }catch(err){
+    const e=new Error('Connexion à Finnhub bloquée (la requête réseau n\'a pas pu aboutir). Ce n\'est pas un problème de clé. Télécharge ce fichier et ouvre-le directement dans ton navigateur (Chrome, Edge, Firefox) plutôt que dans l\'aperçu intégré, puis désactive tout bloqueur de publicité pour cette page.');
+    e.net=true; throw e;
+  }
   if(r.status===401){ const e=new Error('Clé Finnhub invalide ou incomplète. Recopie-la entièrement depuis ton tableau de bord Finnhub (champ « API Key »), sans espace.'); e.status=401; throw e; }
   if(r.status===403){ const e=new Error('Finnhub : cet endpoint n\'est pas inclus dans ton plan (403).'); e.status=403; throw e; }
   if(r.status===429){ const e=new Error('Finnhub : débit dépassé (429). Réduis « sociétés par lancement » ou patiente une minute.'); e.status=429; throw e; }
