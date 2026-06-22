@@ -351,7 +351,7 @@
 <nav class="global-nav">
   <div class="nav-brand">
     <svg class="mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="navg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1E1840"/><stop offset="1" stop-color="#0E0C1C"/></linearGradient></defs><rect width="100" height="100" rx="22" fill="url(#navg)"/><polygon points="36,32 64,32 58,46 42,46" fill="#6C63FF"/><polygon points="36,32 42,46 26,46" fill="#4F46E5"/><polygon points="64,32 74,46 58,46" fill="#4F46E5"/><polygon points="26,46 42,46 50,82" fill="#6C63FF"/><polygon points="74,46 58,46 50,82" fill="#6C63FF"/><polygon points="42,46 58,46 50,82" fill="#FF6B6B"/></svg>
-    Stock<span class="ing">-Ing</span>
+    <span class="brand-name">Stock<span class="ing">-Ing</span></span>
   </div>
   <div class="nav-right">
     <div class="nav-actions">
@@ -363,7 +363,7 @@
 </nav>
 
 <div class="sub-nav">
-  <div class="sub-nav-title">Quality Compounders</div>
+  <div class="sub-nav-title">La qualité de vos actions</div>
   <div class="search-wrap">
     <div class="search-box">
       <span class="ic">⌕</span>
@@ -397,12 +397,18 @@
       <div class="api-hint">Les sociétés déjà en cache ne consomment aucun appel. Relance pour étendre la couverture.</div>
     </div>
 
+    <div class="group-title">Valorisation &amp; taille</div>
+    <div class="slider-field"><div class="slider-head"><span class="slider-label">PER</span><span class="slider-value" id="v-pe">≤ 30</span></div><input type="range" min="0" max="80" value="30" oninput="setF('pe',this.value,'','≤')"></div>
+    <div class="slider-field"><div class="slider-head"><span class="slider-label">P/B Ratio</span><span class="slider-value" id="v-pb">≤ 10.0</span></div><input type="range" min="0" max="30" step="0.5" value="10" oninput="setF('pb',this.value,'','≤',1)"></div>
+    <div class="slider-field"><div class="slider-head"><span class="slider-label">P/FCF</span><span class="slider-value" id="v-pfcf">≤ 30</span></div><input type="range" min="0" max="80" value="30" oninput="setF('pfcf',this.value,'','≤')"></div>
+    <div class="slider-field"><div class="slider-head"><span class="slider-label">Capitalisation min.</span><span class="slider-value" id="v-mc">≥ 10 Mds</span></div><input type="range" min="1" max="500" value="10" oninput="setCap(this.value)"></div>
+
     <div class="group-title">Croissance &amp; rentabilité</div>
-    <div class="slider-field"><div class="slider-head"><span class="slider-label">Croissance CA · 5 ans</span><span class="slider-value" id="v-rg">≥ 10%</span></div><input type="range" min="0" max="50" value="10" oninput="setF('rg',this.value,'%','≥')"></div>
+    <div class="slider-field"><div class="slider-head"><span class="slider-label">Hausse CA · 5 ans</span><span class="slider-value" id="v-rev5">≤ +100%</span></div><input type="range" min="-100" max="200" step="5" value="100" oninput="setRev(this.value)"></div>
     <div class="slider-field"><div class="slider-head"><span class="slider-label">Marge nette</span><span class="slider-value" id="v-nm">≥ 10%</span></div><input type="range" min="0" max="50" value="10" oninput="setF('nm',this.value,'%','≥')"></div>
     <div class="slider-field"><div class="slider-head"><span class="slider-label">ROIC</span><span class="slider-value" id="v-roic">≥ 10%</span></div><input type="range" min="0" max="50" value="10" oninput="setF('roic',this.value,'%','≥')"></div>
     <div class="slider-field"><div class="slider-head"><span class="slider-label">ROCE</span><span class="slider-value" id="v-roce">≥ 10%</span></div><input type="range" min="0" max="50" value="10" oninput="setF('roce',this.value,'%','≥')"></div>
-    <div class="chip-note" style="margin-top:-6px">ROIC = <code>roicTTM</code>. ROCE = rendement du capital tangible (<code>rotcTTM</code>), le champ le plus proche fourni par Finnhub.</div>
+    <div class="chip-note" style="margin-top:-6px">ROIC = <code>roicTTM</code>, ROCE = rendement du capital tangible (<code>rotcTTM</code>, proxy le plus proche). Valeurs lues dans la série annuelle Finnhub si absentes des ratios instantanés.</div>
 
     <div class="group-title">Rachats d'actions</div>
     <div class="toggle-row"><span>Rachète ses actions</span><label class="switch"><input type="checkbox" id="t-buy"><span class="switch-track"></span></label></div>
@@ -412,12 +418,6 @@
     <div class="slider-field"><div class="slider-head"><span class="slider-label">Current Ratio</span><span class="slider-value" id="v-cr">≥ 1.0</span></div><input type="range" min="0" max="5" step="0.1" value="1" oninput="setF('cr',this.value,'','≥',1)"></div>
     <div class="slider-field"><div class="slider-head"><span class="slider-label">Gearing (Dette/CP)</span><span class="slider-value" id="v-ge">≤ 150%</span></div><input type="range" min="0" max="300" value="150" oninput="setF('ge',this.value,'%','≤')"></div>
     <div class="slider-field"><div class="slider-head"><span class="slider-label">Payout Ratio</span><span class="slider-value" id="v-po">≤ 70%</span></div><input type="range" min="0" max="100" value="70" oninput="setF('po',this.value,'%','≤')"></div>
-
-    <div class="group-title">Valorisation &amp; taille</div>
-    <div class="slider-field"><div class="slider-head"><span class="slider-label">P/B Ratio</span><span class="slider-value" id="v-pb">≤ 10.0</span></div><input type="range" min="0" max="30" step="0.5" value="10" oninput="setF('pb',this.value,'','≤',1)"></div>
-    <div class="slider-field"><div class="slider-head"><span class="slider-label">PER</span><span class="slider-value" id="v-pe">≤ 30</span></div><input type="range" min="0" max="80" value="30" oninput="setF('pe',this.value,'','≤')"></div>
-    <div class="slider-field"><div class="slider-head"><span class="slider-label">P/FCF</span><span class="slider-value" id="v-pfcf">≤ 30</span></div><input type="range" min="0" max="80" value="30" oninput="setF('pfcf',this.value,'','≤')"></div>
-    <div class="slider-field"><div class="slider-head"><span class="slider-label">Capitalisation min.</span><span class="slider-value" id="v-mc">≥ 10 Mds</span></div><input type="range" min="1" max="500" value="10" oninput="setCap(this.value)"></div>
 
     <div class="group-title">Critères qualitatifs</div>
     <div class="toggle-row"><span>Dividende</span><label class="switch"><input type="checkbox" id="t-div"><span class="switch-track"></span></label></div>
@@ -432,7 +432,7 @@
 
   <main class="main">
     <div class="tab-panel active" id="panel-screener">
-      <div class="hero"><h1>Trouvez les <span class="grad">entreprises de qualité.</span></h1><p>Des compounders solides, filtrés selon vos critères.</p></div>
+      <div class="hero"><h1>Trouvez les <span class="grad">entreprises de qualité.</span></h1><p>Une analyse sur plus de 10000 actions en moins d'une minute.</p></div>
 
       <div class="stat-grid">
         <div class="stat" style="--sc:var(--brand);--sc-bg:var(--brand-soft)"><div class="stat-top"><span class="stat-dot">⌕</span><div class="stat-label">Analysées</div></div><div class="stat-value blue" id="st-total">—</div></div>
@@ -494,7 +494,7 @@
       <div class="sec-title">Données financières</div>
       <div class="charts">
         <div class="chart-card"><div class="chart-card-title">Performance du cours</div><div class="chart-card-note" id="n-price">&nbsp;</div><div class="chart-wrap"><canvas id="c-price"></canvas></div></div>
-        <div class="chart-card"><div class="chart-card-title">Chiffre d'affaires / action ($)</div><div class="chart-card-note" id="n-sps">&nbsp;</div><div class="chart-wrap"><canvas id="c-sps"></canvas></div></div>
+        <div class="chart-card"><div class="chart-card-title">Chiffre d'affaires par action ($)</div><div class="chart-card-note" id="n-sps">&nbsp;</div><div class="chart-wrap"><canvas id="c-sps"></canvas></div></div>
         <div class="chart-card"><div class="chart-card-title">Marge nette (%)</div><div class="chart-card-note" id="n-margin">&nbsp;</div><div class="chart-wrap"><canvas id="c-margin"></canvas></div></div>
         <div class="chart-card"><div class="chart-card-title">Bénéfice par action ($)</div><div class="chart-card-note" id="n-eps">&nbsp;</div><div class="chart-wrap"><canvas id="c-eps"></canvas></div></div>
       </div>
@@ -546,8 +546,8 @@ function sectorOf(industry){
 }
 function sectorLabel(k){ const m=SECTORS.find(s=>s.k===k); return m?m.n:'Autre'; }
 
-let results=[], watch=JSON.parse(localStorage.getItem('el-watch')||'[]'), charts={}, sortMode='score', universe=null;
-const F={rg:10,nm:10,roic:10,roce:10,cr:1,ge:150,po:70,pb:10,pe:30,pfcf:30,mc:10};
+let results=[], watch=JSON.parse(localStorage.getItem('el-watch')||'[]'), charts={}, sortMode='score', universe=null, candleBlocked=false;
+const F={rg:10,rev5:100,nm:10,roic:10,roce:10,cr:1,ge:150,po:70,pb:10,pe:30,pfcf:30,mc:10};
 let searchTimer=null;
 
 /* ── THÈME ── */
@@ -603,6 +603,7 @@ function setStatus(state){
 
 function setF(k,v,u,d,dec=0){ F[k]=parseFloat(v); document.getElementById('v-'+k).textContent=`${d} ${dec?parseFloat(v).toFixed(1):v}${u}`; }
 function setCap(v){ F.mc=parseInt(v); document.getElementById('v-mc').textContent=`≥ ${v} Mds`; }
+function setRev(v){ F.rev5=parseInt(v); const pct=parseInt(v); document.getElementById('v-rev5').textContent='≤ '+(pct>=0?'+':'')+pct+'%'; }
 function renderChips(){ document.getElementById('chips').innerHTML=SECTORS.map((s,i)=>`<button class="chip ${s.off?'off':'on'}" onclick="togSec(${i})">${s.n}</button>`).join(''); }
 function togSec(i){ SECTORS[i].off=!SECTORS[i].off; renderChips(); }
 function switchTab(t,btn){ document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active')); document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active')); document.getElementById('panel-'+t).classList.add('active'); btn.classList.add('active'); if(t==='watchlist') renderWatch(); }
@@ -611,6 +612,8 @@ function switchTab(t,btn){ document.querySelectorAll('.tab-panel').forEach(p=>p.
 function one(d){ return Array.isArray(d)?(d[0]||{}):(d||{}); }
 function num(v){ const n=parseFloat(v); return Number.isNaN(n)?0:n; }
 function pickM(o,keys){ if(!o) return null; for(const k of keys){ const v=o[k]; if(v!==undefined&&v!==null&&!Number.isNaN(parseFloat(v))) return parseFloat(v); } return null; }
+/* Dernière valeur d'une série annuelle (series.annual) : utile quand metric ne contient pas le champ. */
+function lastSer(SER,keys){ if(!SER) return null; for(const k of keys){ const arr=SER[k]; if(Array.isArray(arr)&&arr.length){ const a=arr.filter(x=>x&&x.v!=null&&!Number.isNaN(parseFloat(x.v))).sort((x,y)=>String(x.period).localeCompare(String(y.period))); if(a.length) return parseFloat(a[a.length-1].v); } } return null; }
 
 async function fh(path){
   await rateGate();
@@ -731,8 +734,13 @@ async function enrich(sym, name){
   const sector=sectorOf(p.finnhubIndustry);
 
   // Ratios (Finnhub renvoie des pourcentages directs pour marges/ROIC/yield/payout)
-  const roic=pickM(M,['roicTTM','roicAnnual','roic']);
-  const roce=pickM(M,['rotcTTM','rotcAnnual','rotc']); // Finnhub n'a pas de ROCE étiqueté : rendement du capital tangible (proxy ROCE)
+  // ROIC / ROCE : Finnhub expose roicTTM et rotcTTM dans la SÉRIE annuelle (series.annual),
+  // pas systématiquement dans l'objet metric -> d'où le « N/A » constaté. On lit metric (déjà en %),
+  // sinon on retombe sur la dernière valeur de la série (exprimée en fraction -> convertie en %).
+  let roic=pickM(M,['roicTTM','roicAnnual','roic']);
+  if(roic==null){ const v=lastSer(SER,['roicTTM','roic']); roic = v==null?null:(Math.abs(v)<=2?v*100:v); }
+  let roce=pickM(M,['rotcTTM','rotcAnnual','rotc']);
+  if(roce==null){ const v=lastSer(SER,['rotcTTM','rotc']); roce = v==null?null:(Math.abs(v)<=2?v*100:v); } // proxy ROCE (rendement du capital tangible)
   const nm=pickM(M,['netMarginTTM','netProfitMarginTTM','netMarginAnnual','netMargin']);
   const pb=pickM(M,['pbAnnual','pbQuarterly','pb','pbTTM']);
   const pe=pickM(M,['peTTM','peBasicExclExtraTTM','peNormalizedAnnual','peAnnual','pe']);
@@ -756,6 +764,16 @@ async function enrich(sym, name){
   // Rachats estimés : CAGR du CA/action vs CAGR du CA total
   let buyback=null, bbYears=0;
   const sps=Array.isArray(SER.salesPerShare)?SER.salesPerShare.filter(x=>x&&x.v>0):[];
+
+  // Variation totale du CA sur ~5 ans (%) : (CA/action dernière année / CA/action 5 ans avant - 1) × 100
+  // Valeur positive = hausse, négative = baisse. Filtre : hausse ne doit pas dépasser le seuil.
+  let rev5pct=null, rev5Years=0;
+  if(sps.length>=2){
+    const sortedRev=sps.slice().sort((a,b)=>String(a.period).localeCompare(String(b.period)));
+    const n=Math.min(5, sortedRev.length-1);
+    const vOld=sortedRev[sortedRev.length-1-n].v, vNew=sortedRev[sortedRev.length-1].v;
+    if(vOld>0){ rev5pct=(vNew/vOld-1)*100; rev5Years=n; }
+  }
   if(sps.length>=2 && rg!=null){
     const sorted=sps.slice().sort((a,b)=>String(a.period).localeCompare(String(b.period)));
     const n=Math.min(5, sorted.length-1);
@@ -777,7 +795,7 @@ async function enrich(sym, name){
     const warn=dir==='g'?val>=th*0.8:val<=th*1.2;
     C[l]={val,ok,warn:!ok&&warn,u}; if(ok) score+=10; else if(warn) score+=4;
   };
-  chk('CA 5A',rg,F.rg,'g','%'); chk('Marge',nm,F.nm,'g','%');
+  chk('CA 5A',rev5pct,F.rev5,'l','%'); chk('Marge',nm,F.nm,'g','%');
   chk('ROIC',roic,F.roic,'g','%'); chk('ROCE',roce,F.roce,'g','%');
   chk('Rachats',buyback,0,'g','%'); chk('C.Ratio',cr,F.cr,'g'); chk('Gearing',gearing,F.ge,'l','%');
   chk('Payout',po,F.po,'l','%'); chk('P/B',pb,F.pb,'l'); chk('PER',pe,F.pe,'l'); chk('P/FCF',pfcf,F.pfcf,'l');
@@ -789,7 +807,7 @@ async function enrich(sym, name){
     price:0, change:0, logo:p.logo||'', desc:'', currency:p.currency||'USD',
     industry:p.finnhubIndustry||'', shares:num(p.shareOutstanding), web:p.weburl||'',
     score, C, bbYears, perf, series:{ sps, netMargin:SER.netMargin||[], eps:SER.eps||[] },
-    R:{nm,cr,po,pb,pe,pfcf,dy,de:gearing,roic,roce,rg,buyback} };
+    R:{nm,cr,po,pb,pe,pfcf,dy,de:gearing,roic,roce,rg,rev5:rev5pct,rev5n:rev5Years,buyback} };
 }
 
 function passes(s){
@@ -915,7 +933,7 @@ function renderMetrics(s){
     byC('Marge','Marge nette',fmt(R.nm,'%')),
     byC('ROIC','ROIC',fmt(R.roic,'%')),
     byC('ROCE','ROCE',fmt(R.roce,'%')),
-    byC('CA 5A','Croissance CA 5A',fmt(R.rg,'%')),
+    byC('CA 5A','Hausse CA ~5 ans',R.rev5!=null?((R.rev5>=0?'+':'')+R.rev5.toFixed(0)+'%'):'N/A'),
     byC('Gearing','Gearing',fmt(R.de,'%',0)),
     byC('Rachats','Rachats/an',bbv),
     byC('C.Ratio','Current Ratio',fmt(R.cr,'',2)),
@@ -940,7 +958,7 @@ async function openModal(sym){
   document.getElementById('m-tags').innerHTML=tags.map(t=>`<span class="tag">${t}</span>`).join('');
   const site=s.web?`<a href="${s.web.startsWith('http')?s.web:'https://'+s.web}" target="_blank" rel="noopener" style="color:var(--brand);text-decoration:none;font-weight:600">Visiter le site ↗</a>`:'';
   document.getElementById('m-desc').innerHTML=`${s.name} — ${s.industry||'secteur n/d'}.${site?'<br>'+site:''}`;
-  document.getElementById('m-crit').innerHTML=Object.entries(s.C).map(([k,c])=>{ const col=critCol(c); const v=c.val===null?'N/A':(c.val.toFixed(c.u==='Md'?0:(k==='Rachats'?1:2))+(c.u||'')); const lbl=k==='Rachats'?'Rachats/an':k==='Capi'?'Capitalisation':k==='CA 5A'?'Croissance CA 5A':k; return `<div class="crit-line"><span class="crit-line-n">${lbl}</span><span class="crit-line-v" style="color:${col}">${v}</span></div>`; }).join('');
+  document.getElementById('m-crit').innerHTML=Object.entries(s.C).map(([k,c])=>{ const col=critCol(c); const v=c.val===null?'N/A':(k==='CA 5A'?((c.val>=0?'+':'')+c.val.toFixed(0)+'%'):(c.val.toFixed(c.u==='Md'?0:(k==='Rachats'?1:2))+(c.u||''))); const lbl=k==='Rachats'?'Rachats/an':k==='Capi'?'Capitalisation':k==='CA 5A'?'Hausse CA ~5 ans':k; return `<div class="crit-line"><span class="crit-line-n">${lbl}</span><span class="crit-line-v" style="color:${col}">${v}</span></div>`; }).join('');
   const f=fscore(s);
   document.getElementById('f-num').textContent=f;
   document.getElementById('f-num').style.color=f>=7?'var(--pos)':f>=5?'var(--warn)':'var(--neg)';
@@ -1001,19 +1019,43 @@ function drawSeriesCharts(s){
   else emptyChart(document.getElementById('c-eps'),'Série indisponible (Finnhub)');
 }
 
-function drawPerformance(s){
+async function drawPerformance(s){
   const el=document.getElementById('c-price'), note=document.getElementById('n-price');
   const pf=s.perf||{};
-  // Fourchette 52 semaines + cours actuel (note)
+
+  // 1) Cible : vraie courbe du cours sur 5 ans (endpoint /stock/candle, pas mensuel).
+  //    Cet endpoint est PREMIUM chez Finnhub -> 403/401 en clé gratuite : on bascule alors sur le repli.
+  if(!candleBlocked){
+    try{
+      let series=s.priceSeries;
+      if(!series){
+        const to=Math.floor(Date.now()/1000), from=to-5*365*24*3600;
+        const cd=await fh(`stock/candle?symbol=${s.sym}&resolution=M&from=${from}&to=${to}`);
+        if(cd&&cd.s==='ok'&&Array.isArray(cd.c)&&Array.isArray(cd.t)&&cd.c.length>1){
+          series={ labels:cd.t.map(t=>String(new Date(t*1000).getFullYear())), vals:cd.c.map(v=>num(v)) };
+          s.priceSeries=series; cacheSet(s.sym,s);
+        }
+      }
+      if(series&&series.vals.length>1){
+        const v0=series.vals[0], v1=series.vals[series.vals.length-1];
+        const tot=v0>0?((v1/v0-1)*100):null;
+        note.innerHTML=tot!=null?`Sur ~5 ans : <b class="${tot<0?'neg':''}">${tot>=0?'+':''}${tot.toFixed(0)}%</b>`:'&nbsp;';
+        charts.price=lineChart(el,series,{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${s.currency||'$'} ${num(c.raw).toFixed(2)}`}}}});
+        return;
+      }
+    }catch(e){ if(e&&(e.status===403||e.status===401)) candleBlocked=true; }
+  }
+
+  // 2) Repli (clé gratuite) : rendements par période + fourchette 52 semaines.
   if(pf.low52!=null && pf.high52!=null && pf.high52>pf.low52){
     const px=s.price>0?s.price:null;
     let pos = px!=null ? Math.max(0,Math.min(100,(px-pf.low52)/(pf.high52-pf.low52)*100)) : null;
     const range=`<div style="margin-top:2px"><div style="display:flex;justify-content:space-between;font-size:11px;color:var(--ink-48)"><span>52s bas ${pf.low52.toFixed(0)}</span><span>${px!=null?('cours '+px.toFixed(2)):''}</span><span>52s haut ${pf.high52.toFixed(0)}</span></div><div style="position:relative;height:6px;background:var(--divider-soft);border-radius:9999px;margin-top:5px">${pos!=null?`<div style="position:absolute;top:-3px;left:${pos}%;width:12px;height:12px;margin-left:-6px;border-radius:9999px;background:var(--brand);border:2px solid var(--surface);box-shadow:0 1px 3px rgba(0,0,0,0.2)"></div>`:''}</div></div>`;
     note.innerHTML=range;
   } else note.innerHTML='&nbsp;';
-  // Rendements sur différentes périodes
+  // Rendements sur différentes périodes (champs gratuits ; 5 ans nécessite une clé premium)
   const pts=[['5J',pf.r5d],['3M',pf.r3m],['6M',pf.r6m],['1A',pf.r1y],['YTD',pf.ytd]].filter(p=>p[1]!=null&&!Number.isNaN(p[1]));
-  if(!pts.length){ emptyChart(el,'Performance indisponible (Finnhub)'); return; }
+  if(!pts.length){ emptyChart(el,'Cours sur 5 ans : clé Finnhub premium requise (endpoint historique)'); return; }
   charts.price=new Chart(el,{type:'bar',
     data:{labels:pts.map(p=>p[0]),datasets:[{data:pts.map(p=>p[1]),backgroundColor:pts.map(p=>p[1]<0?'#FA5252':'#12B886'),hoverBackgroundColor:'#FF6A4D',borderRadius:6,maxBarThickness:34}]},
     options:baseOpts({interaction:{mode:'nearest',intersect:true},hover:{mode:'nearest',intersect:true},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.raw>=0?'+':''}${num(c.raw).toFixed(1)}%`}}}})});
