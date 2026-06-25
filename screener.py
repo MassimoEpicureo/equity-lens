@@ -28,7 +28,7 @@ NOTION_VERSION = "2022-06-28"
 
 # IDs Notion (non secrets)
 WATCHLIST_DB_ID    = "1f1664e8f47d806185f1e4a6f83e3f70"  # base "2. Watching List"
-ENTREPRISES_DB_ID  = "1f1664e8f47d80db8f2b000b803b403a"  # base "1. Entreprises identifiées"
+ENTREPRISES_DB_ID  = "1f1664e8f47d80d9b4defc5104a4c08e"  # base "1. Entreprises identifiées"
 
 # Propriétés Notion (noms exacts)
 STATUT_PROP        = "Statut"
